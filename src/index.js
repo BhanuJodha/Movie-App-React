@@ -10,5 +10,7 @@ const store = createStore(movie);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App store={store} />
+  <React.StrictMode>
+    <App store={store} />
+  </React.StrictMode>
 );
