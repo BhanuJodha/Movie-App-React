@@ -16,20 +16,20 @@ class App extends React.Component {
   }
 
   changeTab = () => {
-    this.props.store.dispatch(setShowFavourite(!this.props.store.getState().showFavourite));
+    this.props.store.dispatch(setShowFavourite(!this.props.store.getState().movies.showFavourite));
   }
 
   render() {
-    const storeState = this.props.store.getState();
-    const movies = storeState.showFavourite ? storeState.favourites : storeState.list;
+    const {movies: movieState, search: searchState} = this.props.store.getState();
+    const movies = movieState.showFavourite ? movieState.favourites : movieState.list;
     
     return (
       <div className="App">
-        <Navbar />
+        <Navbar dispatch={this.props.store.dispatch} searchState={searchState}/>
         <div className="main">
           <div className="tabs">
-            <div className={`tab ${storeState.showFavourite || "active-tabs"}`} onClick={this.changeTab}>Movies</div>
-            <div className={`tab ${storeState.showFavourite && "active-tabs"}`} onClick={this.changeTab}>Favourites</div>
+            <div className={`tab ${movieState.showFavourite || "active-tabs"}`} onClick={this.changeTab}>Movies</div>
+            <div className={`tab ${movieState.showFavourite && "active-tabs"}`} onClick={this.changeTab}>Favourites</div>
           </div>
 
           <div className="list">

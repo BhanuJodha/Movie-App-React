@@ -11,7 +11,7 @@ class MovieCard extends React.Component {
     }
 
     isFavourite = () => {
-        const { favourites } = this.props.store.getState();
+        const { favourites } = this.props.store.getState().movies;
         const index = favourites.indexOf(this.props.movie);
 
         if (index === -1) {

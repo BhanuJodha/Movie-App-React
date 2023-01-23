@@ -1,15 +1,16 @@
-import { ADD_MOVIES, ADD_FAVOURITE, REMOVE_FAVOURITE, SET_SHOW_FAVOURITE } from "../actions";
+import { combineReducers } from "redux";
+import { ADD_MOVIES, ADD_FAVOURITE, REMOVE_FAVOURITE, SET_SHOW_FAVOURITE, SEARCH_MOVIE } from "../actions";
 
-const defaultState = {
+const defaultMovieState = {
     list: [],
     favourites: [],
     showFavourite: false
 }
 
-export default function movie(state = defaultState, action) {
+function movies(state = defaultMovieState, action) {
     switch (action.type) {
         case ADD_MOVIES:
-            return {...state, list: action.movies};
+            return { ...state, list: [...action.movies, ...state.list.filter(movie => movie.imdbID !== action.movies[0].imdbID)] };
         case ADD_FAVOURITE:
             state.favourites.push(action.movie);
             return state;
@@ -23,3 +24,28 @@ export default function movie(state = defaultState, action) {
             return state;
     }
 }
+
+const defaultSearchState = {
+    results: [],
+    showSearch: false
+}
+
+function search(state = defaultSearchState, action) {
+    switch(action.type){
+        case ADD_MOVIES:
+            return { ...state, showSearch: false };
+        case SEARCH_MOVIE:
+            return {
+                ...state,
+                results: action.movies,
+                showSearch: true
+            }
+        default:
+            return state
+    }
+}
+
+export default combineReducers({
+    movies,
+    search
+})

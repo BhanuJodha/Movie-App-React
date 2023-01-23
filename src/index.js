@@ -1,16 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 
 import './index.css';
 import App from './components/App';
-import movie from "./reducers";
+import reducers from "./reducers";
 
-const store = createStore(movie);
+const middelware = ({dispatch, getState}) => (next) => (action) => {
+  if (typeof action === "function"){
+    action(dispatch);
+    return;
+  }
+  next(action);
+}
+
+const store = createStore(reducers, applyMiddleware(middelware));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <App store={store} />
-  </React.StrictMode>
 );

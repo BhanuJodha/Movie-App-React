@@ -39,11 +39,14 @@ body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   z-index: 100;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 .search-result .movie-info {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
 }
 .search-result .movie-info button {
   margin: 20px 10px;
@@ -57,9 +60,11 @@ body {
 }
 .search-result {
   display: flex;
+  margin-top: 4px;
 }
 .search-result img {
   height: 150px;
+  width: 130px;
 }
 .search-result > div span {
   font-size: 20px;
