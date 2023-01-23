@@ -40,7 +40,7 @@ export const searchMovie = (text) => {
         .then((response) => response.json())
         .then((data) => {
             // call dispatch
-            if (data.response){
+            if (data.Response === "True"){
                 dispatch({
                     type: SEARCH_MOVIE,
                     movies: data.Search
